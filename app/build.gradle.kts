@@ -27,16 +27,22 @@ android {
             manifestPlaceholders["app_name"] = "Medtronic Digital Surgery App (Staging)"
             isMinifyEnabled = false
             signingConfig = signingConfigs.getByName("debug")
+            // build configs for staging/debug
+            buildConfigField("String", "BASE_URL", "\"https://staging.touchsurgery.com\"")
         }
         release {
-            isMinifyEnabled = true
+            applicationIdSuffix = ""
             manifestPlaceholders["app_name"] = "Medtronic Digital Surgery App"
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
             // replace this when you have your own signing config
             signingConfig = signingConfigs.getByName("debug")
+            // build configs for release
+            // change the base url to the production url, I'll leave it to staging for now since we don't have a production url yet
+            buildConfigField("String", "BASE_URL", "\"https://staging.touchsurgery.com\"")
         }
     }
     compileOptions {
@@ -65,6 +71,7 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     kapt(libs.androidx.room.compiler)
+    implementation(libs.coil.compose)
 
     implementation(libs.coroutines.android)
     implementation(libs.coroutines.core)
@@ -83,6 +90,7 @@ dependencies {
 
     // test libraries
     testImplementation(libs.junit)
+    testImplementation(libs.mockk)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
