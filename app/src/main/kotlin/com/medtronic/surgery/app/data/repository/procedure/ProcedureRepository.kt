@@ -2,13 +2,22 @@ package com.medtronic.surgery.app.data.repository.procedure
 
 import com.medtronic.surgery.app.data.model.procedure.Procedure
 import com.medtronic.surgery.app.data.model.procedure_details.ProcedureDetails
-import com.medtronic.surgery.app.utils.network.NetworkResponse
-import kotlinx.coroutines.flow.Flow
 
 interface ProcedureRepository {
-    suspend fun refreshProcedures(): NetworkResponse<Unit>
-    suspend fun watchProcedures(): Flow<List<Procedure>>
-    suspend fun refreshProcedureDetails(uuid: String): NetworkResponse<Unit>
-    suspend fun watchProcedureDetails(uuid: String): Flow<ProcedureDetails?>
+    /**
+     * Fetches the list of procedures.
+     */
+    suspend fun fetchProcedures(): List<Procedure>
+
+    /**
+     * Fetches the details of a specific procedure.
+     * @param uuid The UUID of the procedure to fetch details for.
+     */
+    suspend fun fetchProcedureDetails(uuid: String): ProcedureDetails
+
+    /**
+     * Toggles the favorite status of a procedure.
+     * @param uuid The UUID of the procedure to toggle the favorite status for.
+     */
     suspend fun toggleFavoriteStatus(uuid: String)
 }

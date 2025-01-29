@@ -1,2 +1,4 @@
 <resources>
+    <string name="main_navigation_procedures_label">Procedures</string>
+    <string name="main_navigation_favorites_label">Favorites</string>
 </resources>

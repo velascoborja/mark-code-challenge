@@ -2,6 +2,9 @@ package com.medtronic.surgery.app.di
 
 import android.content.Context
 import androidx.room.Room
+import com.medtronic.surgery.app.data.analytics.AnalyticsClient
+import com.medtronic.surgery.app.data.analytics.AnalyticsClientPropagatorImpl
+import com.medtronic.surgery.app.data.analytics.TimberAnalyticsClientImpl
 import com.medtronic.surgery.app.data.local.MRoomDatabase
 import com.medtronic.surgery.app.data.local.dao.ProcedureDao
 import com.medtronic.surgery.app.data.local.dao.ProcedureDetailsDao
@@ -15,6 +18,16 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+    @Provides
+    @Singleton
+    fun provideAnalyticsService(): AnalyticsClient {
+        // you can add more analytics clients here for example firebase, heap, etc
+        val list = listOf(
+            TimberAnalyticsClientImpl()
+        )
+        return AnalyticsClientPropagatorImpl(list)
+    }
+
     @Provides
     @Singleton
     fun providesDatabase(

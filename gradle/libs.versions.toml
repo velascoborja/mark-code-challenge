@@ -6,9 +6,9 @@ junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
-activityCompose = "1.9.3"
-composeBom = "2024.04.01"
-coroutines = "1.6.4"
+activityCompose = "1.10.0"
+composeBom = "2025.01.00"
+coroutines = "1.9.0"
 gson = "2.11.0"
 hilt = "2.51.1"
 hiltNavigationCompose = "1.2.0"
@@ -19,11 +19,14 @@ serialization = "1.6.3"
 timber = "5.0.1"
 mockk = "1.13.16"
 coilCompose = "2.7.0"
+turbine = "1.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
+cashapp-turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine"}
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
