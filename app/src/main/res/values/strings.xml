@@ -1,4 +1,17 @@
 <resources>
+    <string name="top_app_bar_all_procedures">All Procedures</string>
+    <string name="top_app_bar_favorites">My Favorites</string>
     <string name="main_navigation_procedures_label">Procedures</string>
     <string name="main_navigation_favorites_label">Favorites</string>
+    <plurals name="number_of_phases">
+        <item quantity="one">%d Phase</item>
+        <item quantity="other">%d Phases</item>
+    </plurals>
+    <plurals name="duration_in_minutes">
+        <item quantity="one">%d minute</item>
+        <item quantity="other">%d minutes</item>
+    </plurals>
+    <string name="unknown_error">An unknown error occurred</string>
+    <string name="no_procedures_found">No procedures found</string>
+    <string name="no_favorites_found">No favorites found</string>
 </resources>

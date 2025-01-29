@@ -41,24 +41,37 @@ class ProceduresListViewModel @Inject constructor(
         }
     }
 
-    fun refreshProcedures() {
-        viewModelScope.launch {
-            _isRefreshing.value = true
-            try {
-                val procedures = procedureRepository.fetchProcedures()
-                updateProcedureState(procedures)
-            } catch (e: Exception) {
-                updateErrorState(e)
-            } finally {
-                _isRefreshing.value = false
-            }
+    suspend fun refreshProcedures() {
+        _isRefreshing.value = true
+        try {
+            val procedures = procedureRepository.fetchProcedures()
+            updateProcedureState(procedures)
+        } catch (e: Exception) {
+            updateErrorState(e)
+        } finally {
+            _isRefreshing.value = false
         }
     }
 
     fun toggleFavorite(uuid: String) {
         viewModelScope.launch {
             procedureRepository.toggleFavoriteStatus(uuid)
-            fetchProcedures()
+            // ideally, marking as favorite should not be cached locally instead it should be fetched from the server
+            // but for the sake of this demo, we will update the local cache
+            _proceduresListState.update { currentState ->
+                if (currentState is ProceduresListState.Success) {
+                    val updatedProcedures = currentState.procedures.map { procedure ->
+                        if (procedure.uuid == uuid) {
+                            procedure.copy(isFavorite = !procedure.isFavorite)
+                        } else {
+                            procedure
+                        }
+                    }
+                    ProceduresListState.Success(updatedProcedures)
+                } else {
+                    currentState
+                }
+            }
         }
     }
 

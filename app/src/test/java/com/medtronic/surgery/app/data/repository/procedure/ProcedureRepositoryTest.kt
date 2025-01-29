@@ -3,8 +3,8 @@ package com.medtronic.surgery.app.data.repository.procedure
 import com.medtronic.surgery.app.data.local.dao.ProcedureDao
 import com.medtronic.surgery.app.data.local.dao.ProcedureDetailsDao
 import com.medtronic.surgery.app.data.service.procedure.ProcedureService
-import com.medtronic.surgery.app.support.Fixtures.mockProcedures
-import com.medtronic.surgery.app.support.Fixtures.mockProceduresDetails
+import com.medtronic.surgery.app.utils.support.Fixtures.mockProceduresList
+import com.medtronic.surgery.app.utils.support.Fixtures.mockProceduresDetails
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -33,26 +33,26 @@ class ProcedureRepositoryTest {
     @Test
     fun `fetchProcedures should fetch from service and store in dao`() = runTest {
         // Mock service call success
-        coEvery { procedureService.getProcedures() } returns mockProcedures
+        coEvery { procedureService.getProcedures() } returns mockProceduresList
         coEvery { procedureDao.insertProcedures(any()) } returns Unit
 
         val result = repository.fetchProcedures()
 
         // Verify database save and expected result
-        coVerify { procedureDao.insertProcedures(mockProcedures) }
-        assertEquals(mockProcedures, result)
+        coVerify { procedureDao.insertProcedures(mockProceduresList) }
+        assertEquals(mockProceduresList, result)
     }
 
     @Test
     fun `fetchProcedures should return cached data when service fails`() = runTest {
         // Simulate API failure, fallback to DB
         coEvery { procedureService.getProcedures() } throws Exception("Network Error")
-        coEvery { procedureDao.getAllProcedures() } returns flowOf(mockProcedures)
+        coEvery { procedureDao.getAllProcedures() } returns flowOf(mockProceduresList)
 
         val result = repository.fetchProcedures()
 
         // Verify cache usage
-        assertEquals(mockProcedures, result)
+        assertEquals(mockProceduresList, result)
     }
 
     @Test
@@ -85,7 +85,7 @@ class ProcedureRepositoryTest {
     @Test
     fun `toggleFavoriteStatus should update favorite status in both dao`() = runTest {
         // Mock DAO response
-        coEvery { procedureDao.getProcedureByUuid("1") } returns mockProcedures[0]
+        coEvery { procedureDao.getProcedureByUuid("1") } returns mockProceduresList[0]
         coEvery { procedureDetailsDao.getProcedureDetailsByUuid("1") } returns flowOf(
             mockProceduresDetails
         )

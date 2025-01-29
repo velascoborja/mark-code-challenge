@@ -4,7 +4,7 @@ import app.cash.turbine.test
 import com.medtronic.surgery.app.data.repository.procedure.ProcedureRepository
 import com.medtronic.surgery.app.presentation.viewmodel.procedure.ProceduresListViewModel
 import com.medtronic.surgery.app.support.CoroutineTestRule
-import com.medtronic.surgery.app.support.Fixtures.mockProcedures
+import com.medtronic.surgery.app.utils.support.Fixtures.mockProceduresList
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -32,13 +32,13 @@ class ProceduresListViewModelTest {
 
     @Test
     fun `fetchProcedures should set loading state then success`() = runTest {
-        coEvery { repository.fetchProcedures() } returns mockProcedures
+        coEvery { repository.fetchProcedures() } returns mockProceduresList
         viewModel = ProceduresListViewModel(repository)
 
         viewModel.proceduresListState.test {
             assertEquals(ProceduresListViewModel.ProceduresListState.Loading, awaitItem())
             assertEquals(
-                ProceduresListViewModel.ProceduresListState.Success(mockProcedures),
+                ProceduresListViewModel.ProceduresListState.Success(mockProceduresList),
                 awaitItem()
             )
         }
@@ -76,7 +76,7 @@ class ProceduresListViewModelTest {
 
     @Test
     fun `refreshProcedures should update isRefreshing state`() = runTest {
-        coEvery { repository.fetchProcedures() } returns mockProcedures
+        coEvery { repository.fetchProcedures() } returns mockProceduresList
         viewModel = ProceduresListViewModel(repository)
 
         viewModel.isRefreshing.test {
@@ -92,13 +92,11 @@ class ProceduresListViewModelTest {
     @Test
     fun `toggleFavorite should update favorite status and refresh procedures`() = runTest {
         coEvery { repository.toggleFavoriteStatus("1") } returns Unit
-        coEvery { repository.fetchProcedures() } returns mockProcedures
+        coEvery { repository.fetchProcedures() } returns mockProceduresList
         viewModel = ProceduresListViewModel(repository)
 
         viewModel.toggleFavorite("1")
         advanceUntilIdle()
-
         coVerify(exactly = 1) { repository.toggleFavoriteStatus("1") }
-        coVerify { repository.fetchProcedures() }
     }
 }

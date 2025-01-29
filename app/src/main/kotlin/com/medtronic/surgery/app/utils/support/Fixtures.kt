@@ -1,4 +1,4 @@
-package com.medtronic.surgery.app.support
+package com.medtronic.surgery.app.utils.support
 
 import com.medtronic.surgery.app.data.model.image.ImageMetadata
 import com.medtronic.surgery.app.data.model.procedure.Procedure
@@ -12,16 +12,18 @@ object Fixtures {
         version = "version"
     )
 
-    val mockProcedures = listOf(
-        Procedure(
-            uuid = "uuid",
-            name = "name",
-            thumbnail = mockImageData,
-            phases = listOf("phase1", "phase2"),
-            duration = 2480,
-            isFavorite = false,
-            publishedAt = "2015-04-14T10:00:51.978180",
-        )
+    val mockProcedure = Procedure(
+        uuid = "uuid",
+        name = "name",
+        thumbnail = mockImageData,
+        phases = listOf("phase1", "phase2"),
+        duration = 2480,
+        isFavorite = false,
+        publishedAt = "2015-04-14T10:00:51.978180",
+    )
+
+    val mockProceduresList = listOf(
+        mockProcedure
     )
 
     val mockProceduresDetails = ProcedureDetails(

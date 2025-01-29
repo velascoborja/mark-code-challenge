@@ -19,21 +19,31 @@ class ProcedureRepositoryImpl @Inject constructor(
     override suspend fun fetchProcedures(): List<Procedure> {
         return try {
             val procedures = procedureService.getProcedures()
-            procedureDao.insertProcedures(procedures)
-            procedures
+            val storedProcedures = procedureDao.getAllProcedures().firstOrNull() ?: emptyList()
+            val updatedProcedures = procedures.map { procedure ->
+                val existingProcedure = storedProcedures.find { it.uuid == procedure.uuid }
+                procedure.copy(isFavorite = existingProcedure?.isFavorite ?: false)
+            }
+            procedureDao.insertProcedures(updatedProcedures)
+            updatedProcedures
         } catch (e: Exception) {
-            procedureDao.getAllProcedures().firstOrNull() ?: emptyList()
+            procedureDao.getAllProcedures().firstOrNull()?.map {
+                it.copy(isFavorite = it.isFavorite)
+            } ?: emptyList()
         }
     }
 
     override suspend fun fetchProcedureDetails(uuid: String): ProcedureDetails {
         return try {
             val details = procedureService.getProcedureDetails(uuid)
-            procedureDetailsDao.insertProcedureDetails(details)
-            details
+            val storedDetails = procedureDetailsDao.getProcedureDetailsByUuid(uuid).firstOrNull()
+            val updatedDetails = details.copy(isFavorite = storedDetails?.isFavorite ?: false)
+            procedureDetailsDao.insertProcedureDetails(updatedDetails)
+            updatedDetails
         } catch (e: Exception) {
-            procedureDetailsDao.getProcedureDetailsByUuid(uuid).firstOrNull()
-                ?: throw e
+            procedureDetailsDao.getProcedureDetailsByUuid(uuid).firstOrNull()?.copy(
+                isFavorite = procedureDetailsDao.getProcedureDetailsByUuid(uuid).firstOrNull()?.isFavorite ?: false
+            ) ?: throw e
         }
     }
 
