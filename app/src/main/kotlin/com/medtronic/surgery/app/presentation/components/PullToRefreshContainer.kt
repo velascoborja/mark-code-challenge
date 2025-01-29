@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,6 +21,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.medtronic.surgery.app.presentation.theme.AppTheme
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -30,22 +31,15 @@ import kotlinx.coroutines.launch
 fun PullToRefreshContainer(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
-    doOnRefresh: suspend () -> Unit,
+    isRefreshing: Boolean = false,
+    doOnRefresh: () -> Unit,
 ) {
-    var isRefreshing by remember { mutableStateOf(false) }
-    val coroutineScope = rememberCoroutineScope()
-    val onRefresh: () -> Unit = {
-        isRefreshing = true
-        coroutineScope.launch {
-            doOnRefresh()
-            isRefreshing = false
-        }
-    }
-
     PullToRefreshBox(
         modifier = modifier,
         isRefreshing = isRefreshing,
-        onRefresh = onRefresh
+        onRefresh = {
+            doOnRefresh()
+        }
     ) {
         content()
     }
@@ -55,6 +49,9 @@ fun PullToRefreshContainer(
 @Composable
 private fun UICPullToRefreshContainerSampleUsage() {
     AppTheme {
+        var isRefreshing by remember {
+            mutableStateOf(false)
+        }
         val items = remember {
             (1..50).map { "Item $it" }
         }
@@ -88,7 +85,14 @@ private fun UICPullToRefreshContainerSampleUsage() {
                     }
                 }
             },
-            doOnRefresh = { delay(2000) }
+            doOnRefresh = {
+                isRefreshing = true
+                CoroutineScope(Dispatchers.Main).launch {
+                    delay(2000)
+                    isRefreshing = false
+                }
+            },
+            isRefreshing = isRefreshing
         )
     }
 }

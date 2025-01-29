@@ -9,6 +9,7 @@ import com.medtronic.surgery.app.data.model.image.ImageMetadata
 data class ProcedureDetails(
     @PrimaryKey
     @SerializedName("uuid") val uuid: String,
+    @SerializedName("name") val name: String,
     @SerializedName("phases") val phases: List<ProcedureDetailsPhase>? = null,
     @SerializedName("icon") val icon: ImageMetadata? = null,
     @SerializedName("card") val card: ImageMetadata? = null,

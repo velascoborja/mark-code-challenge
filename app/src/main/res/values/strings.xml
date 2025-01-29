@@ -14,4 +14,14 @@
     <string name="unknown_error">An unknown error occurred</string>
     <string name="no_procedures_found">No procedures found</string>
     <string name="no_favorites_found">No favorites found</string>
+    <string name="date_published">Date published: %s</string>
+    <string name="phases">Phases:</string>
+    <string name="search_procedure_hint">Search procedures...</string>
+    <string name="filter_procedure">Filter Procedures</string>
+    <string name="filter_duration_ascending">Shortest Duration</string>
+    <string name="filter_duration_descending">Longest Duration</string>
+    <string name="filter_none">Remove Filter</string>
+    <string name="filter_cancel">Cancel</string>
+    <string name="filter_alphabetical_ascending">A to Z</string>
+    <string name="filter_alphabetical_descending">Z to A</string>
 </resources>

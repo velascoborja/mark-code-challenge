@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.medtronic.surgery.app.data.model.procedure.Procedure
 import com.medtronic.surgery.app.data.repository.procedure.ProcedureRepository
+import com.medtronic.surgery.app.presentation.ui.filter.FilterProcedureType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,13 +13,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProceduresListViewModel @Inject constructor(
+open class ProceduresListViewModel @Inject constructor(
     private val procedureRepository: ProcedureRepository
 ) : ViewModel() {
 
     private val _proceduresListState =
         MutableStateFlow<ProceduresListState>(ProceduresListState.Loading)
-    val proceduresListState: StateFlow<ProceduresListState> get() = _proceduresListState
+    open val proceduresListState: StateFlow<ProceduresListState> get() = _proceduresListState
 
     // this will be used for the pull to refresh
     private val _isRefreshing = MutableStateFlow(false)
@@ -41,15 +42,17 @@ class ProceduresListViewModel @Inject constructor(
         }
     }
 
-    suspend fun refreshProcedures() {
-        _isRefreshing.value = true
-        try {
-            val procedures = procedureRepository.fetchProcedures()
-            updateProcedureState(procedures)
-        } catch (e: Exception) {
-            updateErrorState(e)
-        } finally {
-            _isRefreshing.value = false
+    fun refreshProcedures() {
+        viewModelScope.launch {
+            _isRefreshing.value = true
+            try {
+                val procedures = procedureRepository.fetchProcedures()
+                updateProcedureState(procedures)
+            } catch (e: Exception) {
+                updateErrorState(e)
+            } finally {
+                _isRefreshing.value = false
+            }
         }
     }
 
@@ -90,6 +93,25 @@ class ProceduresListViewModel @Inject constructor(
     private fun updateErrorState(e: Exception) {
         _proceduresListState.update {
             ProceduresListState.Error(e.localizedMessage ?: "Unknown error")
+        }
+    }
+
+    fun filterProcedures(
+        procedures: List<Procedure>,
+        searchQuery: String,
+        selectedFilter: FilterProcedureType,
+        filterFavorites: (Procedure) -> Boolean
+    ): List<Procedure> {
+        val filteredProcedures = procedures.filter { procedure ->
+            filterFavorites(procedure) && procedure.name.contains(searchQuery, ignoreCase = true)
+        }
+        // filter is limited to one for now but can be extended to multiple filters
+        return when (selectedFilter) {
+            FilterProcedureType.DURATION_ASCENDING -> filteredProcedures.sortedBy { it.duration }
+            FilterProcedureType.DURATION_DESCENDING -> filteredProcedures.sortedByDescending { it.duration }
+            FilterProcedureType.ALPHABETICAL_ASCENDING -> filteredProcedures.sortedBy { it.name }
+            FilterProcedureType.ALPHABETICAL_DESCENDING -> filteredProcedures.sortedByDescending { it.name }
+            FilterProcedureType.NONE -> filteredProcedures
         }
     }
 

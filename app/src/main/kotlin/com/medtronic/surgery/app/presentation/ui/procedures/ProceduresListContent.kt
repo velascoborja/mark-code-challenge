@@ -7,14 +7,13 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.medtronic.surgery.app.data.model.procedure.Procedure
-import com.medtronic.surgery.app.presentation.components.ProcedureListItem
 import com.medtronic.surgery.app.presentation.theme.AppTheme
 import com.medtronic.surgery.app.utils.support.Fixtures.mockProcedure
 
 @Composable
 fun ProceduresListContent(
     procedures: List<Procedure>,
-    onItemClick: (String) -> Unit,
+    onProcedureItemClick: (String) -> Unit,
     toggleFavorite: (String) -> Unit,
 ) {
     LazyColumn {
@@ -26,7 +25,7 @@ fun ProceduresListContent(
                 isFavorite = it.isFavorite,
                 duration = it.duration,
                 imageUrl = it.thumbnail?.url,
-                onItemClick = onItemClick,
+                onProcedureItemClick = onProcedureItemClick,
                 toggleFavorite = toggleFavorite
             )
             HorizontalDivider()
@@ -54,7 +53,7 @@ private fun ProceduresListScreenContentPreview() {
         }
         ProceduresListContent(
             procedures = mockProcedures,
-            onItemClick = {},
+            onProcedureItemClick = {},
             toggleFavorite = {},
         )
     }

@@ -36,13 +36,14 @@ class ProcedureRepositoryImpl @Inject constructor(
     override suspend fun fetchProcedureDetails(uuid: String): ProcedureDetails {
         return try {
             val details = procedureService.getProcedureDetails(uuid)
-            val storedDetails = procedureDetailsDao.getProcedureDetailsByUuid(uuid).firstOrNull()
+            val storedDetails = procedureDao.getProcedureByUuid(uuid)
             val updatedDetails = details.copy(isFavorite = storedDetails?.isFavorite ?: false)
             procedureDetailsDao.insertProcedureDetails(updatedDetails)
             updatedDetails
         } catch (e: Exception) {
             procedureDetailsDao.getProcedureDetailsByUuid(uuid).firstOrNull()?.copy(
-                isFavorite = procedureDetailsDao.getProcedureDetailsByUuid(uuid).firstOrNull()?.isFavorite ?: false
+                isFavorite = procedureDetailsDao.getProcedureDetailsByUuid(uuid)
+                    .firstOrNull()?.isFavorite ?: false
             ) ?: throw e
         }
     }

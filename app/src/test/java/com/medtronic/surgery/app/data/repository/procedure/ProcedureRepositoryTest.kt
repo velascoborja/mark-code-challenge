@@ -4,7 +4,7 @@ import com.medtronic.surgery.app.data.local.dao.ProcedureDao
 import com.medtronic.surgery.app.data.local.dao.ProcedureDetailsDao
 import com.medtronic.surgery.app.data.service.procedure.ProcedureService
 import com.medtronic.surgery.app.utils.support.Fixtures.mockProceduresList
-import com.medtronic.surgery.app.utils.support.Fixtures.mockProceduresDetails
+import com.medtronic.surgery.app.utils.support.Fixtures.mockProcedureDetails
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -58,14 +58,14 @@ class ProcedureRepositoryTest {
     @Test
     fun `fetchProcedureDetails should fetch from service and store in dao`() = runTest {
         // Mock service success
-        coEvery { procedureService.getProcedureDetails("1") } returns mockProceduresDetails
+        coEvery { procedureService.getProcedureDetails("1") } returns mockProcedureDetails
         coEvery { procedureDetailsDao.insertProcedureDetails(any()) } returns Unit
 
         val result = repository.fetchProcedureDetails("1")
 
         // Verify database save and expected result
-        coVerify { procedureDetailsDao.insertProcedureDetails(mockProceduresDetails) }
-        assertEquals(mockProceduresDetails, result)
+        coVerify { procedureDetailsDao.insertProcedureDetails(mockProcedureDetails) }
+        assertEquals(mockProcedureDetails, result)
     }
 
     @Test
@@ -73,13 +73,13 @@ class ProcedureRepositoryTest {
         // Simulate API failure, fallback to DB
         coEvery { procedureService.getProcedureDetails("1") } throws Exception("Network Error")
         coEvery { procedureDetailsDao.getProcedureDetailsByUuid("1") } returns flowOf(
-            mockProceduresDetails
+            mockProcedureDetails
         )
 
         val result = repository.fetchProcedureDetails("1")
 
         // Verify cache usage
-        assertEquals(mockProceduresDetails, result)
+        assertEquals(mockProcedureDetails, result)
     }
 
     @Test
@@ -87,7 +87,7 @@ class ProcedureRepositoryTest {
         // Mock DAO response
         coEvery { procedureDao.getProcedureByUuid("1") } returns mockProceduresList[0]
         coEvery { procedureDetailsDao.getProcedureDetailsByUuid("1") } returns flowOf(
-            mockProceduresDetails
+            mockProcedureDetails
         )
 
         // Call function

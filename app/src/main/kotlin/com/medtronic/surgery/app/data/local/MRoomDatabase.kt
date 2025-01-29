@@ -15,7 +15,7 @@ import com.medtronic.surgery.app.data.model.procedure_details.ProcedureDetails
         Procedure::class,
         ProcedureDetails::class
     ],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 @TypeConverters(

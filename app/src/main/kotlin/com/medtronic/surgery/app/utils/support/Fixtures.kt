@@ -26,8 +26,9 @@ object Fixtures {
         mockProcedure
     )
 
-    val mockProceduresDetails = ProcedureDetails(
+    val mockProcedureDetails = ProcedureDetails(
         uuid = "uuid",
+        name = "name",
         phases = listOf(
             ProcedureDetailsPhase(
                 uuid = "uuid",
