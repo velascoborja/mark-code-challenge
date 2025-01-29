@@ -32,10 +32,7 @@ class ProceduresListScreenTest {
         composeTestRule.setContent {
             ProceduresListScreen(
                 proceduresListViewModel = FakeProceduresListViewModel(mockProcedures),
-                title = "Procedures",
-                emptyStateMessage = "No procedures found",
-                onProcedureItemClick = {},
-                filterFavorites = { true }
+                type = ProceduresListType.ALL
             )
         }
 
@@ -49,10 +46,7 @@ class ProceduresListScreenTest {
         composeTestRule.setContent {
             ProceduresListScreen(
                 proceduresListViewModel = FakeProceduresListViewModel(mockProcedures),
-                title = "Procedures",
-                emptyStateMessage = "No procedures found",
-                onProcedureItemClick = {},
-                filterFavorites = { true }
+                type = ProceduresListType.ALL
             )
         }
 
@@ -67,10 +61,7 @@ class ProceduresListScreenTest {
         composeTestRule.setContent {
             ProceduresListScreen(
                 proceduresListViewModel = FakeProceduresListViewModel(mockProcedures),
-                title = "Procedures",
-                emptyStateMessage = "No procedures found",
-                onProcedureItemClick = {},
-                filterFavorites = { true }
+                type = ProceduresListType.ALL
             )
         }
 

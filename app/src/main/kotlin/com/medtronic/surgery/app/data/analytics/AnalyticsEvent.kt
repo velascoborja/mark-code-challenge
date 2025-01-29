@@ -7,6 +7,8 @@ open class AnalyticsEvent(
     val params: MutableMap<String, Any> = mutableMapOf()
 ) : Serializable {
     companion object {
+        const val EVENT_FILTER_CLICKED = "event_filter_clicked"
+        const val EVENT_FILTER_TYPE_SELECTED = "event_filter_type_selected"
         const val EVENT_TOGGLE_FAVORITE = "event_toggle_favorite"
     }
 

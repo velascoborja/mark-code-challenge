@@ -2,9 +2,13 @@ package com.medtronic.surgery.app.presentation.viewmodel.procedure
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.medtronic.surgery.app.data.analytics.AnalyticsClient
+import com.medtronic.surgery.app.data.analytics.AnalyticsEvent
+import com.medtronic.surgery.app.data.analytics.AnalyticsScreenView
 import com.medtronic.surgery.app.data.model.procedure.Procedure
 import com.medtronic.surgery.app.data.repository.procedure.ProcedureRepository
 import com.medtronic.surgery.app.presentation.ui.filter.FilterProcedureType
+import com.medtronic.surgery.app.presentation.ui.procedures.ProceduresListType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,7 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 open class ProceduresListViewModel @Inject constructor(
-    private val procedureRepository: ProcedureRepository
+    private val procedureRepository: ProcedureRepository,
+    private val analytics: AnalyticsClient
 ) : ViewModel() {
 
     private val _proceduresListState =
@@ -57,6 +62,10 @@ open class ProceduresListViewModel @Inject constructor(
     }
 
     fun toggleFavorite(uuid: String) {
+        val event = AnalyticsEvent(AnalyticsEvent.EVENT_TOGGLE_FAVORITE)
+        event.addParameter(AnalyticsEvent.Key.UUID, uuid)
+        analytics.sendEvent(event)
+
         viewModelScope.launch {
             procedureRepository.toggleFavoriteStatus(uuid)
             // ideally, marking as favorite should not be cached locally instead it should be fetched from the server
@@ -113,6 +122,20 @@ open class ProceduresListViewModel @Inject constructor(
             FilterProcedureType.ALPHABETICAL_DESCENDING -> filteredProcedures.sortedByDescending { it.name }
             FilterProcedureType.NONE -> filteredProcedures
         }
+    }
+
+    fun sendAnalyticsScreenViewed(type: ProceduresListType) {
+        analytics.sendScreenView(AnalyticsScreenView(type.screenName))
+    }
+
+    fun sendAnalyticsEventFilterClicked() {
+        analytics.sendEvent(AnalyticsEvent(AnalyticsEvent.EVENT_FILTER_CLICKED))
+    }
+
+    fun sendAnalyticsEventFilterTypeSelected(filterType: FilterProcedureType) {
+        val event = AnalyticsEvent(AnalyticsEvent.EVENT_FILTER_TYPE_SELECTED)
+        event.addParameter(AnalyticsEvent.Key.NAME, filterType.name)
+        analytics.sendEvent(event)
     }
 
     sealed interface ProceduresListState {

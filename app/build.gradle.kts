@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.kapt)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.jacoco)
 }
 
 android {
@@ -29,6 +30,8 @@ android {
             signingConfig = signingConfigs.getByName("debug")
             // build configs for staging/debug
             buildConfigField("String", "BASE_URL", "\"https://staging.touchsurgery.com\"")
+            enableUnitTestCoverage = true
+            enableAndroidTestCoverage = true
         }
         release {
             applicationIdSuffix = ""
@@ -70,6 +73,50 @@ android {
             )
         }
     }
+
+    tasks.register<JacocoReport>("jacocoTestReport") {
+        dependsOn("testDebugUnitTest")
+
+        reports {
+            xml.required.set(true)
+            html.required.set(true)
+            csv.required.set(false)
+        }
+
+        val fileFilter = listOf(
+            "**/R.class",
+            "**/R\$*.class",
+            "**/BuildConfig.class",
+            "**/Manifest*.*",
+            "**/*Test*.*",
+            "android/**/*.*",
+            "**/di/**",
+            "**/presentation/components/**",
+            "**/presentation/navigation/**",
+            "**/presentation/theme/**",
+            "**/presentation/ui/**"
+        )
+
+        val javaClasses = fileTree("$buildDir/tmp/kotlin-classes/debug") {
+            exclude(fileFilter)
+        }
+
+        val kotlinClasses = fileTree("$buildDir/tmp/kotlin-classes/debug") {
+            exclude(fileFilter)
+        }
+
+        val sourceDirs = listOf("src/main/java", "src/main/kotlin")
+
+        classDirectories.setFrom(files(javaClasses, kotlinClasses))
+        additionalSourceDirs.setFrom(files(sourceDirs))
+        sourceDirectories.setFrom(files(sourceDirs))
+
+        val execFiles = fileTree("$buildDir") {
+            include("**/*.exec")
+        }
+        executionData.setFrom(execFiles)
+    }
+
 }
 
 dependencies {

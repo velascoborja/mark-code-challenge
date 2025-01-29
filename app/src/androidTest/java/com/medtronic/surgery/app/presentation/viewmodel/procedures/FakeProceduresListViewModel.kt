@@ -6,7 +6,10 @@ import io.mockk.mockk
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class FakeProceduresListViewModel(procedures: List<Procedure>) : ProceduresListViewModel(mockk()) {
+class FakeProceduresListViewModel(procedures: List<Procedure>) : ProceduresListViewModel(
+    procedureRepository = mockk(),
+    analytics = mockk(relaxed = true)
+) {
     private val _proceduresListState =
         MutableStateFlow<ProceduresListState>(ProceduresListState.Success(procedures))
     override val proceduresListState: StateFlow<ProceduresListState> get() = _proceduresListState

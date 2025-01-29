@@ -1,6 +1,7 @@
 package com.medtronic.surgery.app.presentation.viewmodel.procedures
 
 import app.cash.turbine.test
+import com.medtronic.surgery.app.data.analytics.AnalyticsClient
 import com.medtronic.surgery.app.data.repository.procedure.ProcedureRepository
 import com.medtronic.surgery.app.presentation.viewmodel.procedure.ProceduresListViewModel
 import com.medtronic.surgery.app.support.CoroutineTestRule
@@ -24,16 +25,23 @@ class ProceduresListViewModelTest {
 
     private lateinit var viewModel: ProceduresListViewModel
     private val repository: ProcedureRepository = mockk()
+    private val analyticsClient: AnalyticsClient = mockk(relaxed = true)
 
     @Before
     fun setUp() {
-        viewModel = ProceduresListViewModel(repository)
+        viewModel = ProceduresListViewModel(
+            procedureRepository = repository,
+            analytics = analyticsClient
+        )
     }
 
     @Test
     fun `fetchProcedures should set loading state then success`() = runTest {
         coEvery { repository.fetchProcedures() } returns mockProceduresList
-        viewModel = ProceduresListViewModel(repository)
+        viewModel = ProceduresListViewModel(
+            procedureRepository = repository,
+            analytics = analyticsClient
+        )
 
         viewModel.proceduresListState.test {
             assertEquals(ProceduresListViewModel.ProceduresListState.Loading, awaitItem())
@@ -49,7 +57,10 @@ class ProceduresListViewModelTest {
     @Test
     fun `fetchProcedures should handle empty response`() = runTest {
         coEvery { repository.fetchProcedures() } returns emptyList()
-        viewModel = ProceduresListViewModel(repository)
+        viewModel = ProceduresListViewModel(
+            procedureRepository = repository,
+            analytics = analyticsClient
+        )
 
         viewModel.proceduresListState.test {
             assertEquals(ProceduresListViewModel.ProceduresListState.Loading, awaitItem())
@@ -63,7 +74,10 @@ class ProceduresListViewModelTest {
     @Test
     fun `fetchProcedures should handle error`() = runTest {
         coEvery { repository.fetchProcedures() } throws Exception("Network Error")
-        viewModel = ProceduresListViewModel(repository)
+        viewModel = ProceduresListViewModel(
+            procedureRepository = repository,
+            analytics = analyticsClient
+        )
 
         viewModel.proceduresListState.test {
             assertEquals(ProceduresListViewModel.ProceduresListState.Loading, awaitItem())
@@ -77,7 +91,10 @@ class ProceduresListViewModelTest {
     @Test
     fun `refreshProcedures should update isRefreshing state`() = runTest {
         coEvery { repository.fetchProcedures() } returns mockProceduresList
-        viewModel = ProceduresListViewModel(repository)
+        viewModel = ProceduresListViewModel(
+            procedureRepository = repository,
+            analytics = analyticsClient
+        )
 
         viewModel.isRefreshing.test {
             assertEquals(false, awaitItem()) // Initial state
@@ -93,7 +110,10 @@ class ProceduresListViewModelTest {
     fun `toggleFavorite should update favorite status and refresh procedures`() = runTest {
         coEvery { repository.toggleFavoriteStatus("1") } returns Unit
         coEvery { repository.fetchProcedures() } returns mockProceduresList
-        viewModel = ProceduresListViewModel(repository)
+        viewModel = ProceduresListViewModel(
+            procedureRepository = repository,
+            analytics = analyticsClient
+        )
 
         viewModel.toggleFavorite("1")
         advanceUntilIdle()
