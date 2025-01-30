@@ -56,3 +56,55 @@ A good architecture would be highly appreciated.
 ## Bonus:
 * Include a way to search/filter procedures in the list
 * Capability to work offline
+
+# Challenger's notes:
+This project is an Android app that interacts with the TouchSurgery API. 
+
+# Author
+Mark Edison R. Cua
+
+## Features
+- Procedure List: View a list of procedures fetched from the TouchSurgery API.
+- Procedure Details: View detailed information of a selected procedure.
+- Favourite Procedures: Store and display favourite procedures in a local database.
+- Search Procedures: Filter procedures by title.
+- Filter Procedures: Filter procedures by title and duration .
+- Offline Capability: Store procedures in a local database for offline viewing.
+
+Technical Overview
+
+## Architecture
+The project uses MVVM (Model-View-ViewModel) architecture with the following layers:
+
+- Data Layer: Handles API calls and local database operations using Room.
+- Presentation Layer: Composables and ViewModels powered by Jetpack Compose.
+- 
+## Libraries Used
+- Jetpack Compose: Modern UI toolkit for building native Android apps.
+- Hilt: Dependency injection for managing app-wide dependencies.
+- Retrofit: HTTP client for API requests.
+- Room: Local database for caching API data.
+- Kotlin Coroutines: Asynchronous programming and flows.
+- Timber: Logging library.
+- Jacoco: Code coverage library.
+- Detekt: Static code analysis tool.
+
+## Testing
+- Unit tests: Test the ViewModel and Repository classes.
+- Instrumented tests: Test the procedures list screen.
+
+## Code Coverage
+- Jacoco: Code coverage report is generated after running the tests.
+- The code coverage report is located at `app/build/reports/jacoco/jacocoTestReport/html/index.html`.
+- To run the tests and generate the code coverage report, run the following command:
+```Android Studio terminal
+./gradlew testDebugUnitTest
+./gradlew jacocoTestReport
+```
+
+## Static Code Analysis
+- Detekt: Static code analysis tool is used to enforce code quality.
+- To run the static code analysis, run the following command:
+```Android Studio terminal
+./gradlew detekt
+```
