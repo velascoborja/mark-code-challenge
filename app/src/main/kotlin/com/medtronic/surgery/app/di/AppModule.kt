@@ -18,6 +18,8 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+    private const val DATABASE_NAME = "medtronic_surgery_app_db"
+
     @Provides
     @Singleton
     fun provideAnalyticsService(): AnalyticsClient {
@@ -52,5 +54,4 @@ object AppModule {
         return db.procedureDetailsDao()
     }
 
-    private const val DATABASE_NAME = "medtronic_surgery_app_db"
 }

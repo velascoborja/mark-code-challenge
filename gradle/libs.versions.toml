@@ -20,6 +20,7 @@ timber = "5.0.1"
 mockk = "1.13.16"
 coilCompose = "2.7.0"
 turbine = "1.2.0"
+detekt = "1.23.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -67,4 +68,4 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 jacoco = { id = "jacoco" }
-
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }

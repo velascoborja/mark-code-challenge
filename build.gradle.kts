@@ -6,4 +6,5 @@ plugins {
     alias(libs.plugins.hilt.android) apply false
     alias(libs.plugins.kapt) apply false
     alias(libs.plugins.jacoco)
+    alias(libs.plugins.detekt)
 }

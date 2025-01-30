@@ -37,14 +37,19 @@ class ProcedureRepositoryImpl @Inject constructor(
         return try {
             val details = procedureService.getProcedureDetails(uuid)
             val storedDetails = procedureDao.getProcedureByUuid(uuid)
-            val updatedDetails = details.copy(isFavorite = storedDetails?.isFavorite ?: false)
+            val updatedDetails = details.copy(
+                isFavorite = storedDetails?.isFavorite ?: false
+            )
             procedureDetailsDao.insertProcedureDetails(updatedDetails)
             updatedDetails
         } catch (e: Exception) {
-            procedureDetailsDao.getProcedureDetailsByUuid(uuid).firstOrNull()?.copy(
-                isFavorite = procedureDetailsDao.getProcedureDetailsByUuid(uuid)
-                    .firstOrNull()?.isFavorite ?: false
-            ) ?: throw e
+            val storedProcedureDetails = procedureDetailsDao
+                .getProcedureDetailsByUuid(uuid)
+                .firstOrNull()
+            val updatedProcedureDetails = storedProcedureDetails?.copy(
+                isFavorite = storedProcedureDetails.isFavorite
+            )
+            updatedProcedureDetails ?: throw e
         }
     }
 

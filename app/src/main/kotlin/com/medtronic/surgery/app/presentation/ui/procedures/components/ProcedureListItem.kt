@@ -1,4 +1,4 @@
-package com.medtronic.surgery.app.presentation.ui.procedures
+package com.medtronic.surgery.app.presentation.ui.procedures.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.clickable
@@ -78,12 +78,13 @@ fun ProcedureListItemPreviewNight() {
     ProcedureListItemPreview()
 }
 
+@Suppress("StringLiteralDuplication")
 @Composable
 private fun ProcedureListItemPreview() {
     AppTheme {
         Column {
             ProcedureListItem(
-                imageUrl = "https://content.touchsurgery.com/14/3c/143cd9a4cffb00d4f891c4496fb3c0b3b0417cb61a869f92cb43155d21d04d5d?Expires=1738530720&Signature=n~mAIQTTW8sjdFqrhsrWyFVzL66poPhJB0S6-R0cSSKFHuSrbDmzy7~PDeWvy0xVyS5I9Cl2lxxmFQxZ-mtcFsMarPA59F1dQJou7nSC~u4JyfmYBYFw884YqZN0awLlGjaWwJ1AKVijwUGUVleE~3tMtVxLQghow3HrBuXzo81GH5bSERZvl3HIGVJ01jqD7GlE6GlBm0IG2vDpmQkdrXnUMrGFVF8OG7x9dUmgJAZEr3X-lKfKjDUdDmcdyWG8zo1oJn8zZxx8Q48F9umFQE2KYT7AgYAxSoRntmBUdYGGQ7P770DmRHR1AsQYerdLsCnC-DSMC9obiYiEo~2XSA__&Key-Pair-Id=KNNS9X5VSGQAG",
+                imageUrl = "image_url_1",
                 uuid = "procedure-UCI_Pneumo",
                 name = "Needle Aspiration for Pneumothorax",
                 numberOfPhases = 0,
@@ -94,7 +95,7 @@ private fun ProcedureListItemPreview() {
             )
             HorizontalDivider()
             ProcedureListItem(
-                imageUrl = "https://content.touchsurgery.com/14/3c/143cd9a4cffb00d4f891c4496fb3c0b3b0417cb61a869f92cb43155d21d04d5d?Expires=1738530720&Signature=n~mAIQTTW8sjdFqrhsrWyFVzL66poPhJB0S6-R0cSSKFHuSrbDmzy7~PDeWvy0xVyS5I9Cl2lxxmFQxZ-mtcFsMarPA59F1dQJou7nSC~u4JyfmYBYFw884YqZN0awLlGjaWwJ1AKVijwUGUVleE~3tMtVxLQghow3HrBuXzo81GH5bSERZvl3HIGVJ01jqD7GlE6GlBm0IG2vDpmQkdrXnUMrGFVF8OG7x9dUmgJAZEr3X-lKfKjDUdDmcdyWG8zo1oJn8zZxx8Q48F9umFQE2KYT7AgYAxSoRntmBUdYGGQ7P770DmRHR1AsQYerdLsCnC-DSMC9obiYiEo~2XSA__&Key-Pair-Id=KNNS9X5VSGQAG",
+                imageUrl = "image_url_2",
                 uuid = "procedure-UCI_Pneumo",
                 name = "Needle Aspiration for Pneumothorax",
                 numberOfPhases = 1,
@@ -105,7 +106,7 @@ private fun ProcedureListItemPreview() {
             )
             HorizontalDivider()
             ProcedureListItem(
-                imageUrl = "https://content.touchsurgery.com/14/3c/143cd9a4cffb00d4f891c4496fb3c0b3b0417cb61a869f92cb43155d21d04d5d?Expires=1738530720&Signature=n~mAIQTTW8sjdFqrhsrWyFVzL66poPhJB0S6-R0cSSKFHuSrbDmzy7~PDeWvy0xVyS5I9Cl2lxxmFQxZ-mtcFsMarPA59F1dQJou7nSC~u4JyfmYBYFw884YqZN0awLlGjaWwJ1AKVijwUGUVleE~3tMtVxLQghow3HrBuXzo81GH5bSERZvl3HIGVJ01jqD7GlE6GlBm0IG2vDpmQkdrXnUMrGFVF8OG7x9dUmgJAZEr3X-lKfKjDUdDmcdyWG8zo1oJn8zZxx8Q48F9umFQE2KYT7AgYAxSoRntmBUdYGGQ7P770DmRHR1AsQYerdLsCnC-DSMC9obiYiEo~2XSA__&Key-Pair-Id=KNNS9X5VSGQAG",
+                imageUrl = "image_url_3",
                 uuid = "procedure-UCI_Pneumo",
                 name = "Needle Aspiration for Pneumothorax",
                 numberOfPhases = 2,

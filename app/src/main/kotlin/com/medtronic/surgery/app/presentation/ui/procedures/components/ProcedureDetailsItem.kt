@@ -1,4 +1,4 @@
-package com.medtronic.surgery.app.presentation.ui.procedures
+package com.medtronic.surgery.app.presentation.ui.procedures.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image

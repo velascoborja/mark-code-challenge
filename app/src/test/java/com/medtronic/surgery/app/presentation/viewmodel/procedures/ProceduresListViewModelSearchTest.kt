@@ -23,14 +23,6 @@ class ProceduresListViewModelSearchTest {
     private val repository: ProcedureRepository = mockk()
     private val analyticsClient: AnalyticsClient = mockk(relaxed = true)
 
-    @Before
-    fun setUp() {
-        viewModel = ProceduresListViewModel(
-            procedureRepository = repository,
-            analytics = analyticsClient
-        )
-    }
-
     private val mockProcedures = listOf(
         mockProcedure.copy(uuid = "1", name = "Cemented Hip Cup", duration = 180),
         mockProcedure.copy(
@@ -41,6 +33,14 @@ class ProceduresListViewModelSearchTest {
         ),
         mockProcedure.copy(uuid = "3", name = "IMA Harvesting", duration = 90)
     )
+
+    @Before
+    fun setUp() {
+        viewModel = ProceduresListViewModel(
+            procedureRepository = repository,
+            analytics = analyticsClient
+        )
+    }
 
     @Test
     fun `filterProcedures should return all procedures when searchQuery is empty and filter is NONE`() {

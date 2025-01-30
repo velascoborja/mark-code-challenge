@@ -42,11 +42,11 @@ fun MainNavigationBar(navController: NavController) {
                     }
                 },
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = ColorPrimary,   // Change the selected icon color
-                    unselectedIconColor = ColorAccent,  // Change the unselected icon color
-                    selectedTextColor = ColorPrimary,   // Change the selected text color
-                    unselectedTextColor = ColorAccent,  // Change the unselected text color
-                    indicatorColor = ColorPrimary.copy(alpha = 0.1f)  // Change the indicator color for the selected item
+                    selectedIconColor = ColorPrimary,
+                    unselectedIconColor = ColorAccent,
+                    selectedTextColor = ColorPrimary,
+                    unselectedTextColor = ColorAccent,
+                    indicatorColor = ColorPrimary.copy(alpha = 0.1f)
                 ),
             )
         }

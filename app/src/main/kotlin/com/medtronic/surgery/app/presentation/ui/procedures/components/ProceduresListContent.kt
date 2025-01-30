@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.medtronic.surgery.app.data.model.procedure.Procedure
 import com.medtronic.surgery.app.presentation.theme.AppTheme
-import com.medtronic.surgery.app.presentation.ui.procedures.ProcedureListItem
 import com.medtronic.surgery.app.utils.support.Fixtures.mockProcedure
 
 @Composable

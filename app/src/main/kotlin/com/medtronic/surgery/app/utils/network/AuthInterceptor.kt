@@ -14,7 +14,8 @@ class AuthInterceptor @Inject constructor() : Interceptor {
         // val token = authRepository.getStoredAccessToken()
         val request = chain
             .request()
-            .newBuilder().apply {
+            .newBuilder()
+            .apply {
                 // header("Authorization", "Bearer ")
             }
             .build()

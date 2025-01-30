@@ -1,3 +1,5 @@
+import io.gitlab.arturbosch.detekt.Detekt
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -6,6 +8,7 @@ plugins {
     alias(libs.plugins.kapt)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.jacoco)
+    alias(libs.plugins.detekt)
 }
 
 android {
@@ -116,7 +119,6 @@ android {
         }
         executionData.setFrom(execFiles)
     }
-
 }
 
 dependencies {

@@ -34,8 +34,8 @@ import com.medtronic.surgery.app.data.model.procedure_details.ProcedureDetails
 import com.medtronic.surgery.app.presentation.components.Banner
 import com.medtronic.surgery.app.presentation.theme.ColorPrimaryText
 import com.medtronic.surgery.app.presentation.theme.ColorSecondaryText
-import com.medtronic.surgery.app.presentation.ui.procedures.ProcedureDetailsItem
-import com.medtronic.surgery.app.presentation.ui.procedures.ProcedurePhaseDetailsItem
+import com.medtronic.surgery.app.presentation.ui.procedures.components.ProcedureDetailsItem
+import com.medtronic.surgery.app.presentation.ui.procedures.components.ProcedurePhaseDetailsItem
 import com.medtronic.surgery.app.presentation.viewmodel.details.ProcedureDetailsViewModel
 import com.medtronic.surgery.app.utils.date.DateFormatPattern
 import com.medtronic.surgery.app.utils.date.DateFormatter.formatDate
