@@ -1,0 +1,27 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="top_app_bar_all_procedures">Todos los procedimientos</string>
+    <string name="top_app_bar_favorites">Mis favoritos</string>
+    <string name="main_navigation_procedures_label">Procedimientos</string>
+    <string name="main_navigation_favorites_label">Favoritos</string>
+    <plurals name="number_of_phases" tools:ignore="MissingQuantity">
+        <item quantity="one">%d Fase</item>
+        <item quantity="other">%d Fases</item>
+    </plurals>
+    <plurals name="duration_in_minutes" tools:ignore="MissingQuantity">
+        <item quantity="one">%d minuto</item>
+        <item quantity="other">%d minutos</item>
+    </plurals>
+    <string name="unknown_error">Ocurrió un error desconocido</string>
+    <string name="no_procedures_found">No se encontraron procedimientos</string>
+    <string name="no_favorites_found">No se encontraron favoritos</string>
+    <string name="date_published">Fecha de publicación: %s</string>
+    <string name="phases">Fases:</string>
+    <string name="search_procedure_hint">Buscar procedimientos...</string>
+    <string name="filter_procedure">Filtrar procedimientos</string>
+    <string name="filter_duration_ascending">Duración más corta</string>
+    <string name="filter_duration_descending">Duración más larga</string>
+    <string name="filter_none">Eliminar filtro</string>
+    <string name="filter_cancel">Cancelar</string>
+    <string name="filter_alphabetical_ascending">A a Z</string>
+    <string name="filter_alphabetical_descending">Z a A</string>
+</resources>

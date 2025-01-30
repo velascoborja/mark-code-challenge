@@ -1,0 +1,27 @@
+<resources>
+    <string name="top_app_bar_all_procedures">All Procedures</string>
+    <string name="top_app_bar_favorites">My Favorites</string>
+    <string name="main_navigation_procedures_label">Procedures</string>
+    <string name="main_navigation_favorites_label">Favorites</string>
+    <plurals name="number_of_phases">
+        <item quantity="one">%d Phase</item>
+        <item quantity="other">%d Phases</item>
+    </plurals>
+    <plurals name="duration_in_minutes">
+        <item quantity="one">%d minute</item>
+        <item quantity="other">%d minutes</item>
+    </plurals>
+    <string name="unknown_error">An unknown error occurred</string>
+    <string name="no_procedures_found">No procedures found</string>
+    <string name="no_favorites_found">No favorites found</string>
+    <string name="date_published">Date published: %s</string>
+    <string name="phases">Phases:</string>
+    <string name="search_procedure_hint">Search procedures...</string>
+    <string name="filter_procedure">Filter Procedures</string>
+    <string name="filter_duration_ascending">Shortest Duration</string>
+    <string name="filter_duration_descending">Longest Duration</string>
+    <string name="filter_none">Remove Filter</string>
+    <string name="filter_cancel">Cancel</string>
+    <string name="filter_alphabetical_ascending">A to Z</string>
+    <string name="filter_alphabetical_descending">Z to A</string>
+</resources>
